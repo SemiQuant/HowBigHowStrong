@@ -1,0 +1,12 @@
+name: SampleSizeCalculator
+title: SampleSizeCalculator
+username:
+account: semiquant
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 405009
+bundleId: 1566794
+url: https://semiquant.shinyapps.io/SampleSizeCalculator/
+when: 1535965715.0129
+asMultiple: FALSE
+asStatic: FALSE
