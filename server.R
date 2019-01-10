@@ -1,5 +1,6 @@
+require(BiocManager)
 require(shiny)
-library(shinyjs)
+require(shinyjs)
 require(DT)
 require(tidyverse)
 require(plotly)
