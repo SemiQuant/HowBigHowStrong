@@ -10,7 +10,8 @@ require(shinyAce)
 require(shinyalert)
 # require(shinyWidgets)
 # require(sendmailR)
-
+# devtools::install_github("nik01010/dashboardthemes")
+require(dashboardthemes)
 
 #################
 dark_grey_edited <- shinyDashboardThemeDIY(
@@ -139,7 +140,7 @@ sidebar <- dashboardSidebar(
                 # menuSubItem(
                 conditionalPanel("input.sidebarmenu === 'rct'", # "(input.hide_panel[1] %% 2) == 0",
                                  radioButtons("pwrRCT", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                 sliderInput("alp", "Selcet alpha:", min = 0.001, max = 0.2, 0.01, step = 0.001),
+                                 sliderInput("alp", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
                                  sliderInput("outcome1", "Selcet Outcome 1 expected proportion:", min = 0.1, max = 0.99, 0.5, step = 0.01),
                                  sliderInput("outcome2", "Selcet Outcome 2 expected proportion:", min = 0.1, max = 0.99, 0.65, step = 0.01),
                                  conditionalPanel("input.pwrRCT === 'Power'",
@@ -160,7 +161,7 @@ sidebar <- dashboardSidebar(
                          menuSubItem("One Sample Proportion", tabName = "propSS", icon = icon("calculator")),
                          conditionalPanel("input.sidebarmenu === 'propSS'",
                                           radioButtons("pwrpropSS", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                          sliderInput("alpProp", "Selcet alpha:", min = 0.001, max = 0.2, 0.01, step = 0.001),
+                                          sliderInput("alpProp", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
                                           selectInput(
                                             inputId = "altProp", label = "Alternative:", multiple = F,
                                             choices = c("two.sided", "greater", "less"), selected = "two.sided"),
@@ -179,7 +180,7 @@ sidebar <- dashboardSidebar(
                          menuSubItem("Two Sample Proportion", tabName = "propTS", icon = icon("calculator")),
                          conditionalPanel("input.sidebarmenu === 'propTS'",
                                           radioButtons("pwrpropTS", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                          sliderInput("alpPropTS", "Selcet alpha:", min = 0.001, max = 0.2, 0.01, step = 0.001),
+                                          sliderInput("alpPropTS", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
 
                                           selectInput(
                                             inputId = "altPropTS", label = "Alternative:", multiple = F,
@@ -201,7 +202,7 @@ sidebar <- dashboardSidebar(
                          menuItem("Population Proportion (CI)", tabName = "PP", icon = icon("calculator")),
                          conditionalPanel("input.sidebarmenu === 'PP'",
                                           radioButtons("pwrpropPP", "Select type:", inline = T, choices = c("Power"), selected = "Power"),
-                                          sliderInput("alpPP", "Selcet alpha:", min = 0.001, max = 0.2, 0.01, step = 0.001),
+                                          sliderInput("alpPP", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
                                           sliderInput("fractionPP", "Selcet likley sample proportion:",
                                                       min = 0.01, max = 0.5, 0.5, step = 0.01),
                                           numericInput("popSizePP", "Total population size (leave as defult if unknown):", value=0, min = 0),
@@ -221,7 +222,7 @@ sidebar <- dashboardSidebar(
                 menuItem("Two Means", tabName = "MM", icon = icon("calculator")),
                 conditionalPanel("input.sidebarmenu === 'MM'",
                                  radioButtons("pwrMM", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                 sliderInput("alpMM", "Selcet alpha:", min = 0.001, max = 0.2, 0.01, step = 0.001),
+                                 sliderInput("alpMM", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
                                  selectInput(
                                    inputId = "typM", label = "Type:", multiple = F,
                                    choices = c("two.sample", "one.sample", "paired"), selected = "two.sample"),
@@ -246,7 +247,7 @@ sidebar <- dashboardSidebar(
                 menuItem("RNA Seq", tabName = "RNAss", icon = icon("calculator")),
                 conditionalPanel("input.sidebarmenu === 'RNAss'",
                                  radioButtons("pwrRNA", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                 sliderInput("alpRNA", "Selcet FDR alpha:", min = 0.001, max = 0.2, 0.01, step = 0.001),
+                                 sliderInput("alpRNA", "Selcet FDR alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
                                  sliderInput("rhoRNA", "Minimal fold change between two groups:", min = 0.5, max = 50, 2, step = 0.5),
                                  numericInput("lambda0RNA", "Minimal average read counts:", value=5, min = 1),
                                  numericInput("phi0RNA", "Maximal dispersion:", value= 0.5, min = 0),
