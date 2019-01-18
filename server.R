@@ -523,6 +523,48 @@ shinyServer(function(input, output, session){
       p
 
   })
+
+
+
+  output$frame2 <- renderUI({
+    HTML('<div>
+    <iframe src="https://rpsychologist.com/d3/NHST/" scrolling="no" style="height: 1680px; border: 0px none; width: 1250px; margin-top: -830px; margin-left: 0px; ">
+    </iframe>
+    </div>')
+  })
+
+  observeEvent(input$sidebarmenu, {
+    if (input$sidebarmenu == "WhatIs")
+    showModal(modalDialog(easyClose=T,
+      title = "What is a p-value? What is power?",
+      "This is borrowed from the Rphycologist and you can interactively play with paramaters to see what power and significance are/mean."
+#       footer =
+#       c('Still need to edit the below text.
+#       Power is the probability of not making a Type II error (1 – beta). Type II error is the probability of wrongly failing to reject the null  (i.e. you dont see a difference in you test but there is actually a difference). Thus, simply put, power is the probability that the test rejects the null hypothesis (H0) when, in fact, it is false. You want power to be as large as possible.
+#
+#
+# What affects power?
+# -Significance level (alpha)
+# -Sample size
+# -Variability, or variance, in the measured response variable
+# -Magnitude of the effect
+#
+#
+# p-value: How likley our sample results are under our assumption of the truth. Put another way, what is the probability of being this far or further from the null in either direction (two sided test). So for example, our H0 when comparing two means would be H0=u1-u2=0. Type I error is to falsely infer the existence of something that is not there.
+# It is the likelihood that you will report a difference as significant when, in reality, it is not. You want this to be as small as possible.')
+    ))
+  })
+
+
+  # output$CM <- renderImage({
+  #   # When input$n is 1, filename is ./images/image1.jpeg
+  #   filename <- normalizePath(file.path('www/ConfusionMatrix_MyEdit.png'))
+  #
+  #   # Return a list containing the filename
+  #   list(src = filename)
+  # }, deleteFile = FALSE)
+
 })
+
 
 

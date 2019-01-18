@@ -288,9 +288,11 @@ sidebar <- dashboardSidebar(
                          )
                 ),
 
+                menuItem("Useful Information", tabName = "Info",
+                         menuItem("What is power?", tabName = "WhatIs", icon = icon("info")),
 
-
-
+                         menuItem("A confusion matrix", tabName = "CM", icon = icon("info"))
+                ),
 
 
                 menuItem("Website", icon = icon("chrome"),
@@ -422,7 +424,40 @@ body <- dashboardBody(
             box(title = "Enter Data (tab seperated, you can copy paste from excel)", collapsible = T, collapsed = F, width = 6, height = "300px",
                 verbatimTextOutput("ROCdt"))
 
+    ),
+
+
+    tabItem(tabName = "WhatIs",
+            # h3("What is a p-value? What is power?"),
+            # br(),
+            htmlOutput("frame2"),
+
+            tags$p('Still need to edit this text
+                   Power is the probability of not making a Type II error (1 – beta).'),
+            tags$p('Type II error is the probability of wrongly failing to reject the null  (i.e. you dont see a difference in you test but there is actually a difference).'),
+            tags$p('Thus, simply put, power is the probability that the test rejects the null hypothesis (H0) when, in fact, it is false. You want power to be as large as possible.'),
+            br(),
+            tags$p('What affects power?'),
+            tags$li('Significance level (alpha)'),
+            tags$li('Sample size'),
+            tags$li('Variability, or variance, in the measured response variable'),
+            tags$li('Magnitude of the effect'),
+            br(),
+
+            tags$p('p-value: How likley our sample results are under our assumption of the truth. Put another way, what is the probability of being this far or further from the null in either direction (two sided test).'),
+            tags$p('So for example, our H0 when comparing two means would be H0=u1-u2=0. Type I error is to falsely infer the existence of something that is not there.'),
+            tags$p('It is the likelihood that you will report a difference as significant when, in reality, it is not. You want this to be as small as possible.')
+            # https://rpsychologist.com/d3/NHST/
+    ),
+
+    tabItem(tabName = "CM",
+            img(src='ConfusionMatrix_MyEdit.png', align = "center", height="80%", width="80%")
     )
+
+
+
+
+
   )
 )
 
@@ -433,7 +468,6 @@ dashboardPage(
   sidebar,
   body
 )
-
 
 
 
