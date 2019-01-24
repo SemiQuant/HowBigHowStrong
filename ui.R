@@ -135,130 +135,128 @@ sidebar <- dashboardSidebar(
   dashboardSidebar(
     sidebarMenu(id = "sidebarmenu",
                 menuItem("Dashboard", tabName = "dashboard", icon = icon("home")),
-                # menuItem("Sample Size",
-                menuItem("Cohort/RCT", tabName = "rct", icon = icon("calculator")),
-                # menuSubItem(
-                conditionalPanel("input.sidebarmenu === 'rct'", # "(input.hide_panel[1] %% 2) == 0",
-                                 radioButtons("pwrRCT", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                 sliderInput("alp", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
-                                 sliderInput("outcome1", "Selcet Outcome 1 expected proportion:", min = 0.1, max = 0.99, 0.5, step = 0.01),
-                                 sliderInput("outcome2", "Selcet Outcome 2 expected proportion:", min = 0.1, max = 0.99, 0.65, step = 0.01),
-                                 conditionalPanel("input.pwrRCT === 'Power'",
-                                                  sliderInput("fraction", "Selcet fraction of observations in Outcome 1 (use 0.5 if equal populations):",
-                                                              min = 0.01, max = 0.5, 0.5, step = 0.01),
-                                                  sliderInput("pRange", "Selcet power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
-                                                  sliderInput("LTFU", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
-                                 ),
-                                 conditionalPanel("input.pwrRCT === 'Sample Size'",
-                                                  sliderInput("nrct", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
-                                                  # numericInput("ORrct", "Odds Ratio:", 0.2, min = 0.0001),
-                                                  # sliderInput("PRrct", "Percent Reduction:", min = 0, value = 0, step = 1, max = 100)
-                                 )
-                ),
+                convertMenuItem(
+                  menuItem("Cohort/RCT", tabName = "rct", icon = icon("calculator"),
+
+                           # conditionalPanel("input.sidebarmenu === 'rct'", # "(input.hide_panel[1] %% 2) == 0",
+                           radioButtons("pwrRCT", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
+                           sliderInput("alp", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                           sliderInput("outcome1", "Selcet Outcome 1 expected proportion:", min = 0.1, max = 0.99, 0.5, step = 0.01),
+                           sliderInput("outcome2", "Selcet Outcome 2 expected proportion:", min = 0.1, max = 0.99, 0.65, step = 0.01),
+                           conditionalPanel("input.pwrRCT === 'Power'",
+                                            sliderInput("fraction", "Selcet fraction of observations in Outcome 1 (use 0.5 if equal populations):",
+                                                        min = 0.01, max = 0.5, 0.5, step = 0.01),
+                                            sliderInput("pRange", "Selcet power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
+                                            sliderInput("LTFU", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
+                           ),
+                           conditionalPanel("input.pwrRCT === 'Sample Size'",
+                                            sliderInput("nrct", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
+                                            # numericInput("ORrct", "Odds Ratio:", 0.2, min = 0.0001),
+                                            # sliderInput("PRrct", "Percent Reduction:", min = 0, value = 0, step = 1, max = 100)
+                           )
+                  ),"rct"),
 
 
                 menuItem("Proportions", icon = icon("calculator"),
-                         menuSubItem("One Sample Proportion", tabName = "propSS", icon = icon("calculator")),
-                         conditionalPanel("input.sidebarmenu === 'propSS'",
-                                          radioButtons("pwrpropSS", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                          sliderInput("alpProp", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
-                                          selectInput(
-                                            inputId = "altProp", label = "Alternative:", multiple = F,
-                                            choices = c("two.sided", "greater", "less"), selected = "two.sided"),
-                                          numericInput("effProp", "Effect Size:", 0.2, min = 0.0001),
-                                          conditionalPanel("input.pwrpropSS === 'Power'",
-                                                           sliderInput("pRangeProp", "Selcet power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
-                                                           sliderInput("LTFUProp", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
-                                          ),
-                                          conditionalPanel("input.pwrpropSS === 'Sample Size'",
-                                                           sliderInput("pRangePropSsize", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
-                                          )
+                         convertMenuItem(
+                           menuItem("One Sample Proportion", tabName = "propSS", icon = icon("calculator"),
+                                    # conditionalPanel("input.sidebarmenu === 'propSS'",
+                                    radioButtons("pwrpropSS", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
+                                    sliderInput("alpProp", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    selectInput(
+                                      inputId = "altProp", label = "Alternative:", multiple = F,
+                                      choices = c("two.sided", "greater", "less"), selected = "two.sided"),
+                                    numericInput("effProp", "Effect Size:", 0.2, min = 0.0001),
+                                    conditionalPanel("input.pwrpropSS === 'Power'",
+                                                     sliderInput("pRangeProp", "Selcet power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
+                                                     sliderInput("LTFUProp", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
+                                    ),
+                                    conditionalPanel("input.pwrpropSS === 'Sample Size'",
+                                                     sliderInput("pRangePropSsize", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
+                                    )
 
-                         ),
+                           ), "propSS"),
 
+                         convertMenuItem(
+                           menuItem("Two Sample Proportion", tabName = "propTS", icon = icon("calculator"),
+                                    # conditionalPanel("input.sidebarmenu === 'propTS'",
+                                    radioButtons("pwrpropTS", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
+                                    sliderInput("alpPropTS", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
 
-                         menuSubItem("Two Sample Proportion", tabName = "propTS", icon = icon("calculator")),
-                         conditionalPanel("input.sidebarmenu === 'propTS'",
-                                          radioButtons("pwrpropTS", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                          sliderInput("alpPropTS", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    selectInput(
+                                      inputId = "altPropTS", label = "Alternative:", multiple = F,
+                                      choices = c("two.sided", "greater", "less"), selected = "two.sided"),
+                                    numericInput("effPropTS", "Effect Size:", 0.2, min = 0.0001),
 
-                                          selectInput(
-                                            inputId = "altPropTS", label = "Alternative:", multiple = F,
-                                            choices = c("two.sided", "greater", "less"), selected = "two.sided"),
-                                          numericInput("effPropTS", "Effect Size:", 0.2, min = 0.0001),
+                                    conditionalPanel("input.pwrpropTS === 'Power'",
+                                                     sliderInput("pRangePropTS", "Selcet power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
+                                                     sliderInput("LTFUPropTS", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
+                                    ),
+                                    conditionalPanel("input.pwrpropTS === 'Sample Size'",
+                                                     sliderInput("pRangePropTSsize", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
+                                    )
+                           ), "propTS"),
 
-                                          conditionalPanel("input.pwrpropTS === 'Power'",
-                                                           sliderInput("pRangePropTS", "Selcet power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
-                                                           sliderInput("LTFUPropTS", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
-                                          ),
-                                          conditionalPanel("input.pwrpropTS === 'Sample Size'",
-                                                           sliderInput("pRangePropTSsize", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
-                                          )
-
-
-                         ),
-
-
-                         menuItem("Population Proportion (CI)", tabName = "PP", icon = icon("calculator")),
-                         conditionalPanel("input.sidebarmenu === 'PP'",
-                                          radioButtons("pwrpropPP", "Select type:", inline = T, choices = c("Power"), selected = "Power"),
-                                          sliderInput("alpPP", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
-                                          sliderInput("fractionPP", "Selcet likley sample proportion:",
-                                                      min = 0.01, max = 0.5, 0.5, step = 0.01),
-                                          numericInput("popSizePP", "Total population size (leave as defult if unknown):", value=0, min = 0),
-                                          # sliderInput("CIPP", "", min = 0.01, max = 1, value = 0.95, step = 0.01),
-                                          conditionalPanel("input.pwrpropPP === 'Power'",
-                                                           sliderInput("pRangePP", "Confidence levels:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
-                                                           sliderInput("LTFUPPP", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
-                                          ),
-                                          conditionalPanel("input.pwrpropPP === 'Sample Size'",
-                                                           sliderInput("pRangePPSsize", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
-                                          )
-
-                         )
+                         convertMenuItem(
+                           menuItem("Population Proportion (CI)", tabName = "PP", icon = icon("calculator"),
+                                    # conditionalPanel("input.sidebarmenu === 'PP'",
+                                    radioButtons("pwrpropPP", "Select type:", inline = T, choices = c("Power"), selected = "Power"),
+                                    sliderInput("alpPP", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    sliderInput("fractionPP", "Selcet likley sample proportion:",
+                                                min = 0.01, max = 0.5, 0.5, step = 0.01),
+                                    numericInput("popSizePP", "Total population size (leave as defult if unknown):", value=0, min = 0),
+                                    # sliderInput("CIPP", "", min = 0.01, max = 1, value = 0.95, step = 0.01),
+                                    conditionalPanel("input.pwrpropPP === 'Power'",
+                                                     sliderInput("pRangePP", "Confidence levels:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
+                                                     sliderInput("LTFUPPP", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
+                                    ),
+                                    conditionalPanel("input.pwrpropPP === 'Sample Size'",
+                                                     sliderInput("pRangePPSsize", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
+                                    )
+                           ), "PP")
                 ),
 
-
-                menuItem("Two Means", tabName = "MM", icon = icon("calculator")),
-                conditionalPanel("input.sidebarmenu === 'MM'",
-                                 radioButtons("pwrMM", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                 sliderInput("alpMM", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
-                                 selectInput(
-                                   inputId = "typM", label = "Type:", multiple = F,
-                                   choices = c("two.sample", "one.sample", "paired"), selected = "two.sample"),
-                                 selectInput(
-                                   inputId = "altMM", label = "Alternative:", multiple = F,
-                                   choices = c("two.sided", "greater", "less"), selected = "two.sided"),
-                                 numericInput("Mm1", "Mean of group 1:", value=132.86, min = 0),
-                                 numericInput("SdM1", "Standard deviation of group 1:", value=15.34, min = 0),
-                                 numericInput("Mm2", "Mean of group 1:", value=127.44, min = 0),
-                                 numericInput("SdM2", "Standard deviation of group 2:", value=18.23, min = 0),
-                                 numericInput("altSDMM", "Effect size (Cohen's d; leave this 0 if using the above Means and SDs):", value=0, min = 0),
-                                 conditionalPanel("input.pwrMM === 'Power'",
-                                                  sliderInput("pRangeMM", "Power:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
-                                                  sliderInput("LTFUPMM", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
-                                 ),
-                                 conditionalPanel("input.pwrMM === 'Sample Size'",
-                                                  sliderInput("pRangeMMpwr", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
-                                 )
+                convertMenuItem(
+                  menuItem("Two Means", tabName = "MM", icon = icon("calculator"),
+                           # conditionalPanel("input.sidebarmenu === 'MM'",
+                           radioButtons("pwrMM", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
+                           sliderInput("alpMM", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                           selectInput(
+                             inputId = "typM", label = "Type:", multiple = F,
+                             choices = c("two.sample", "one.sample", "paired"), selected = "two.sample"),
+                           selectInput(
+                             inputId = "altMM", label = "Alternative:", multiple = F,
+                             choices = c("two.sided", "greater", "less"), selected = "two.sided"),
+                           numericInput("Mm1", "Mean of group 1:", value=132.86, min = 0),
+                           numericInput("SdM1", "Standard deviation of group 1:", value=15.34, min = 0),
+                           numericInput("Mm2", "Mean of group 1:", value=127.44, min = 0),
+                           numericInput("SdM2", "Standard deviation of group 2:", value=18.23, min = 0),
+                           numericInput("altSDMM", "Effect size (Cohen's d; leave this 0 if using the above Means and SDs):", value=0, min = 0),
+                           conditionalPanel("input.pwrMM === 'Power'",
+                                            sliderInput("pRangeMM", "Power:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
+                                            sliderInput("LTFUPMM", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
+                           ),
+                           conditionalPanel("input.pwrMM === 'Sample Size'",
+                                            sliderInput("pRangeMMpwr", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
+                           )), "MM"
                 ),
 
-
-                menuItem("RNA Seq", tabName = "RNAss", icon = icon("calculator")),
-                conditionalPanel("input.sidebarmenu === 'RNAss'",
-                                 radioButtons("pwrRNA", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                 sliderInput("alpRNA", "Selcet FDR alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
-                                 sliderInput("rhoRNA", "Minimal fold change between two groups:", min = 0.5, max = 50, 2, step = 0.5),
-                                 numericInput("lambda0RNA", "Minimal average read counts:", value=5, min = 1),
-                                 numericInput("phi0RNA", "Maximal dispersion:", value= 0.5, min = 0),
-                                 conditionalPanel("input.pwrRNA === 'Power'",
-                                                  sliderInput("LTFUPRNA", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01),
-                                                  sliderInput("pRangeRNA", "Power:", min = 0.1, max = 0.99, value = c(0.94, 0.95), step = 0.01)
-                                 ),
-                                 conditionalPanel("input.pwrRNA === 'Sample Size'",
-                                                  sliderInput("pRangeRNAss", "Sample Size:", min = 2, value = c(95, 100), step = 1, max = 10000)
-                                 )
-                ),
+                convertMenuItem(
+                  menuItem("RNA Seq", tabName = "RNAss", icon = icon("calculator"),
+                           # conditionalPanel("input.sidebarmenu === 'RNAss'",
+                           radioButtons("pwrRNA", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
+                           sliderInput("alpRNA", "Selcet FDR alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                           sliderInput("rhoRNA", "Minimal fold change between two groups:", min = 0.5, max = 50, 2, step = 0.5),
+                           numericInput("lambda0RNA", "Minimal average read counts:", value=5, min = 1),
+                           numericInput("phi0RNA", "Maximal dispersion:", value= 0.5, min = 0),
+                           conditionalPanel("input.pwrRNA === 'Power'",
+                                            sliderInput("LTFUPRNA", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01),
+                                            sliderInput("pRangeRNA", "Power:", min = 0.1, max = 0.99, value = c(0.94, 0.95), step = 0.01)
+                           ),
+                           conditionalPanel("input.pwrRNA === 'Sample Size'",
+                                            sliderInput("pRangeRNAss", "Sample Size:", min = 2, value = c(95, 100), step = 1, max = 10000)
+                           )
+                  ), "RNAss"),
 
 
                 conditionalPanel("input.sidebarmenu !== 'dashboard'",
@@ -267,22 +265,24 @@ sidebar <- dashboardSidebar(
 
 
                 menuItem("Other Cals", tabName = "Ocalc",
-                         menuItem("Contigency (RxC) Tables", tabName = "ChiTab"),
-                         conditionalPanel("input.sidebarmenu === 'ChiTab'",
-                                          menuItem("Enter data below using tab seperation:"),
+                         convertMenuItem(
+                         menuItem("Contigency (RxC) Tables", tabName = "ChiTab",
+                         # conditionalPanel("input.sidebarmenu === 'ChiTab'",
+                         "Enter data below using tab seperation:",
                                           aceEditor("rc_input",  theme = "idle_fingers",
-                                                    value='Res \tMilk\tTea \nMilk\t3\t1\nTea \t1\t3', mode="r", height = "150px", fontSize = 14),
+                                                    value='Res \tMilk\tTea \nMilk\t3\t1\nTea \t1\t3', mode="r", height = "150px", fontSize = 13),
                                           checkboxInput("MCtest", "Use Mcnemar Test")
-                         ),
+                         ), "ChiTab"),
 
-                         menuItem("Diagnostic Test Performance", tabName = "DiagTAB"),
-                         conditionalPanel("input.sidebarmenu === 'DiagTAB'",
-                                          menuItem("Enter data below using tab seperation:"),
+                         convertMenuItem(
+                         menuItem("Diagnostic Test Performance", tabName = "DiagTAB",
+                         # conditionalPanel("input.sidebarmenu === 'DiagTAB'",
+                         "Enter data below using tab seperation:",
                                           aceEditor("dtp_input", theme = "idle_fingers",
-                                                    value='Res \tPositive\tNegative \nPositive\t3\t1\nNegative \t1\t3', mode="r", height = "150px", fontSize = 14)
-                         ),
+                                                    value='Res \tPositive\tNegative \nPositive\t3\t1\nNegative \t1\t3', mode="r", height = "150px", fontSize = 13)
+                         ), "DiagTAB"),
 
-
+                         # convertMenuItem(
                          menuItem("ROC curve", tabName = "RocTAB"),
                          conditionalPanel("input.sidebarmenu === 'RocTAB'"
                          )
@@ -290,7 +290,6 @@ sidebar <- dashboardSidebar(
 
                 menuItem("Useful Information", tabName = "Info",
                          menuItem("What is power?", tabName = "WhatIs", icon = icon("info")),
-
                          menuItem("A confusion matrix", tabName = "CM", icon = icon("info"))
                 ),
 
