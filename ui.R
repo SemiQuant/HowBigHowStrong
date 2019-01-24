@@ -137,8 +137,6 @@ sidebar <- dashboardSidebar(
                 menuItem("Dashboard", tabName = "dashboard", icon = icon("home")),
                 convertMenuItem(
                   menuItem("Cohort/RCT", tabName = "rct", icon = icon("calculator"),
-
-                           # conditionalPanel("input.sidebarmenu === 'rct'", # "(input.hide_panel[1] %% 2) == 0",
                            radioButtons("pwrRCT", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
                            sliderInput("alp", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
                            sliderInput("outcome1", "Selcet Outcome 1 expected proportion:", min = 0.1, max = 0.99, 0.5, step = 0.01),
@@ -151,8 +149,6 @@ sidebar <- dashboardSidebar(
                            ),
                            conditionalPanel("input.pwrRCT === 'Sample Size'",
                                             sliderInput("nrct", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
-                                            # numericInput("ORrct", "Odds Ratio:", 0.2, min = 0.0001),
-                                            # sliderInput("PRrct", "Percent Reduction:", min = 0, value = 0, step = 1, max = 100)
                            )
                   ),"rct"),
 

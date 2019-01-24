@@ -533,7 +533,7 @@ shinyServer(function(input, output, session){
 
   output$frame2 <- renderUI({
     HTML('<div>
-    <iframe src="https://rpsychologist.com/d3/NHST/" scrolling="no" style="height: 1680px; border: 0px none; width: 1250px; margin-top: -830px; margin-left: 0px; ">
+    <iframe src="https://rpsychologist.com/d3/NHST/" scrolling="no" style="height: 1675px; border: 0px none; width: 1250px; margin-top: -815px; margin-left: 0px; ">
     </iframe>
     </div>')
   })
