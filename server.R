@@ -560,6 +560,16 @@ shinyServer(function(input, output, session){
     ))
   })
 
+  observeEvent(input$sidebarmenu, {
+    if (input$sidebarmenu == "cite")
+      showModal(modalDialog(
+        title = "Citation",
+        paste0("Limberis, JD. 2018.", "HowBigHowStrong", "[Online]. Available at: ", "https://semiquant.shinyapps.io/SampleSizeCalculator/", "(Accessed: ", Sys.Date(), ")"),
+        easyClose = TRUE,
+        footer = NULL
+      ))
+  })
+
 
   # output$CM <- renderImage({
   #   # When input$n is 1, filename is ./images/image1.jpeg

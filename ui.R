@@ -294,6 +294,8 @@ sidebar <- dashboardSidebar(
                          menuItem("A confusion matrix", tabName = "CM", icon = icon("info"))
                 ),
 
+                menuItem("Cite", icon = icon("info"), tabName = "cite"
+                ),
 
                 menuItem("Website", icon = icon("chrome"),
                          href = "http://www.semiquant.com")
