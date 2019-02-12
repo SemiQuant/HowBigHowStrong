@@ -88,19 +88,26 @@ shinyServer(function(input, output, session){
       for (pwr in seq(from = input$pRange[1], to = input$pRange[2], by = 0.01)){
         ss.tmp <- bsamsize(input$outcome1, input$outcome2, alpha=input$alp, power=pwr, fraction = input$fraction)
         ss.tmp <- c(pwr, ss.tmp)
+        ss.tmp <- c(ss.tmp, input$prev1)
+        ss.tmp <- c(ss.tmp, input$prev2)
         ss <- rbind(ss, ss.tmp)
       }
       ss.backup <- data.frame(ss)
       colnames(ss.backup)[1] <- "Power"
+      colnames(ss.backup)[4:5] <- c("Prevelance 1", "Prevelance 2")
 
       ss <- ss.backup
-      ss$n1 <- ceiling((ss$n1*input$LTFU)+ss$n1)
-      ss$n2 <- ceiling((ss$n1*input$LTFU)+ss$n2)
+
+      ss$n1 <- (ss$n1/input$prev1)
+      ss$n1 <- ceiling(ss$n1*input$LTFU+ss$n1)
+      ss$n2 <- (ss$n2/input$prev2)
+      ss$n2 <- ceiling(ss$n2*input$LTFU+ss$n2)
+
       ss$TotalSampleSize <- ss$n1 + ss$n2
       ss <- gather(ss, key = Group, value = SampleSize,
                    n1, n2, TotalSampleSize)
 
-      if (input$fraction == 0.5){
+      if (input$fraction == 0.5 & input$prev1 == input$prev2){
         ss <- ss[ss$Group != "n2",]
         ss$Group <- ifelse(ss$Group == "n1", "n", ss$Group)
       }
@@ -118,11 +125,13 @@ shinyServer(function(input, output, session){
       ss <- ss.backup
       # ss <- gather(ss, key = Group, value = SampleSize)
     }
+
     ss
   })
 
   output$RCTplot <- renderPlotly({
     ss <- RCTss()
+
     if ("Group"%in%colnames(ss)){
       if (input$plot_xkcd)
         ggplotly(ggplot(ss, aes(x = Power, y = SampleSize)) +
@@ -158,7 +167,8 @@ shinyServer(function(input, output, session){
   output$RCTplotDT <- renderDT({
     ss <- RCTss()
     datatable(ss,  extensions = 'Buttons', options = list(scrollX = TRUE, dom = 'Bfrtip',
-                                                          buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))
+                                                          buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                                                          rownames = F)
     )
   })
 
