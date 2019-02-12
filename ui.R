@@ -138,14 +138,15 @@ sidebar <- dashboardSidebar(
                 convertMenuItem(
                   menuItem("Cohort/RCT", tabName = "rct", icon = icon("calculator"),
                            radioButtons("pwrRCT", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                           sliderInput("alp", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
-                           sliderInput("outcome1", "Selcet Outcome 1 expected proportion:", min = 0.1, max = 0.99, 0.5, step = 0.01),
-                           sliderInput("outcome2", "Selcet Outcome 2 expected proportion:", min = 0.1, max = 0.99, 0.65, step = 0.01),
+                           sliderInput("alp", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                           sliderInput("outcome1", "Select Outcome 1 expected proportion:", min = 0.1, max = 0.99, 0.5, step = 0.01),
+                           sliderInput("outcome2", "Select Outcome 2 expected proportion:", min = 0.1, max = 0.99, 0.65, step = 0.01),
                            conditionalPanel("input.pwrRCT === 'Power'",
-                                            sliderInput("fraction", "Selcet fraction of observations in Outcome 1 (use 0.5 if equal populations):",
+                                            sliderInput("fraction", "Select fraction of observations in Outcome 1 (use 0.5 if equal populations):",
                                                         min = 0.01, max = 0.5, 0.5, step = 0.01),
-                                            sliderInput("pRange", "Selcet power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
+                                            sliderInput("pRange", "Select power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
                                             sliderInput("LTFU", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
+
                            ),
                            conditionalPanel("input.pwrRCT === 'Sample Size'",
                                             sliderInput("nrct", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
@@ -158,13 +159,13 @@ sidebar <- dashboardSidebar(
                            menuItem("One Sample Proportion", tabName = "propSS", icon = icon("calculator"),
                                     # conditionalPanel("input.sidebarmenu === 'propSS'",
                                     radioButtons("pwrpropSS", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                    sliderInput("alpProp", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    sliderInput("alpProp", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
                                     selectInput(
                                       inputId = "altProp", label = "Alternative:", multiple = F,
                                       choices = c("two.sided", "greater", "less"), selected = "two.sided"),
                                     numericInput("effProp", "Effect Size:", 0.2, min = 0.0001),
                                     conditionalPanel("input.pwrpropSS === 'Power'",
-                                                     sliderInput("pRangeProp", "Selcet power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
+                                                     sliderInput("pRangeProp", "Select power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
                                                      sliderInput("LTFUProp", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
                                     ),
                                     conditionalPanel("input.pwrpropSS === 'Sample Size'",
@@ -177,7 +178,7 @@ sidebar <- dashboardSidebar(
                            menuItem("Two Sample Proportion", tabName = "propTS", icon = icon("calculator"),
                                     # conditionalPanel("input.sidebarmenu === 'propTS'",
                                     radioButtons("pwrpropTS", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                    sliderInput("alpPropTS", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    sliderInput("alpPropTS", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
 
                                     selectInput(
                                       inputId = "altPropTS", label = "Alternative:", multiple = F,
@@ -185,7 +186,7 @@ sidebar <- dashboardSidebar(
                                     numericInput("effPropTS", "Effect Size:", 0.2, min = 0.0001),
 
                                     conditionalPanel("input.pwrpropTS === 'Power'",
-                                                     sliderInput("pRangePropTS", "Selcet power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
+                                                     sliderInput("pRangePropTS", "Select power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
                                                      sliderInput("LTFUPropTS", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
                                     ),
                                     conditionalPanel("input.pwrpropTS === 'Sample Size'",
@@ -197,8 +198,8 @@ sidebar <- dashboardSidebar(
                            menuItem("Population Proportion (CI)", tabName = "PP", icon = icon("calculator"),
                                     # conditionalPanel("input.sidebarmenu === 'PP'",
                                     radioButtons("pwrpropPP", "Select type:", inline = T, choices = c("Power"), selected = "Power"),
-                                    sliderInput("alpPP", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
-                                    sliderInput("fractionPP", "Selcet likley sample proportion:",
+                                    sliderInput("alpPP", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    sliderInput("fractionPP", "Select likley sample proportion:",
                                                 min = 0.01, max = 0.5, 0.5, step = 0.01),
                                     numericInput("popSizePP", "Total population size (leave as defult if unknown):", value=0, min = 0),
                                     # sliderInput("CIPP", "", min = 0.01, max = 1, value = 0.95, step = 0.01),
@@ -216,7 +217,7 @@ sidebar <- dashboardSidebar(
                   menuItem("Two Means", tabName = "MM", icon = icon("calculator"),
                            # conditionalPanel("input.sidebarmenu === 'MM'",
                            radioButtons("pwrMM", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                           sliderInput("alpMM", "Selcet alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                           sliderInput("alpMM", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
                            selectInput(
                              inputId = "typM", label = "Type:", multiple = F,
                              choices = c("two.sample", "one.sample", "paired"), selected = "two.sample"),
@@ -241,7 +242,7 @@ sidebar <- dashboardSidebar(
                   menuItem("RNA Seq", tabName = "RNAss", icon = icon("calculator"),
                            # conditionalPanel("input.sidebarmenu === 'RNAss'",
                            radioButtons("pwrRNA", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                           sliderInput("alpRNA", "Selcet FDR alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                           sliderInput("alpRNA", "Select FDR alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
                            sliderInput("rhoRNA", "Minimal fold change between two groups:", min = 0.5, max = 50, 2, step = 0.5),
                            numericInput("lambda0RNA", "Minimal average read counts:", value=5, min = 1),
                            numericInput("phi0RNA", "Maximal dispersion:", value= 0.5, min = 0),
