@@ -145,7 +145,9 @@ sidebar <- dashboardSidebar(
                                             sliderInput("fraction", "Select fraction of observations in Outcome 1 (use 0.5 if equal populations):",
                                                         min = 0.01, max = 0.5, 0.5, step = 0.01),
                                             sliderInput("pRange", "Select power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
-                                            sliderInput("LTFU", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
+                                            sliderInput("LTFU", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01),
+                                            sliderInput("prev1", "Prevelance Outcome 1:", min = 0, max = 1, 1, step = 0.01),
+                                            sliderInput("prev2", "Prevelance Outcome 2:", min = 0, max = 1, 1, step = 0.01)
 
                            ),
                            conditionalPanel("input.pwrRCT === 'Sample Size'",
