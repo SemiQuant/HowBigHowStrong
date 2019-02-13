@@ -25,14 +25,9 @@ require(shinyAce)
 # library(mailR)
 # require(sendmailR)
 # require(shinyalert)
-#Stuff here runs once per app
+# Stuff here runs once per app
 
 #  I put everything in a loop as not all the things can take in vetors. So this was jsut easier.
-#
-#
-#
-# Define server logic required to draw a histogram
-# test <<- 0
 shinyServer(function(input, output, session){
   # output$rctMenu <- renderMenu({
   #   sidebarMenu(

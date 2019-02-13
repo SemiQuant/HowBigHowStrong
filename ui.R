@@ -126,8 +126,6 @@ header <- dashboardHeader(title =  div(img(src = "sq.png", height="42.885", widt
                                        notificationItem(text = "Copyright 2018")
                           )
 )
-# header <-dashboardHeader(title = tags$a(href='www.semiquant.com',
-#                                  tags$img(src='www/sq.png', height="42.885", width="34.29")))
 
 sidebar <- dashboardSidebar(
   width = 300,
