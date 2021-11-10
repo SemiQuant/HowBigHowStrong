@@ -1,4 +1,7 @@
 require(BiocManager)
+# if get bioconductor error do this
+options(repos = BiocManager::repositories())
+
 require(shiny)
 require(shinyjs)
 require(DT)
@@ -18,9 +21,8 @@ require(ggplot2)
 require(shinyAce)
 
 
-# if get bioconductor error do this
-# options(repos = BiocInstaller::biocinstallRepos())
-# getOption("repos")
+
+
 
 # library(mailR)
 # require(sendmailR)
