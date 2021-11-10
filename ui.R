@@ -383,7 +383,7 @@ body <- dashboardBody(
     ),
 
     tabItem(tabName = "DP",
-            h3("Disease Frevalence and Sample Size"),
+            h3("Disease Prevalence and Sample Size"),
             h5("*Buderer, N. M. F. (1996). Statistical methodology: I. Incorporating the prevalence of disease into the sample size calculation for sensitivity and specificity. Academic Emergency Medicine."),
             plotlyOutput("DPplot")
     ),

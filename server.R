@@ -357,16 +357,16 @@ shinyServer(function(input, output, session){
       TP_FN <- Za2^2*(SN*(1-SN)/W^2)
 
       # Calculate the Sample Size Required for Sensitivity
-      N_Sn <- (TP_FN)/P
+      N_Sn <- ceiling((TP_FN)/P)
 
 
       # Calculate the Number without Disease, FP + TN
       FP_TN <- Za2^2*(SP*(1-SP)/W^2)
 
       # Calculate the Sample Size Required for Specificity, N_Sp
-      N_Sp <- (FP_TN)/(1-P)
+      N_Sp <- ceiling((FP_TN)/(1-P))
 
-      N <- ceiling(ifelse(N_Sn > N_Sp, N_Sn, N_Sp))
+      N <- ifelse(N_Sn > N_Sp, N_Sn, N_Sp)
       # is the number of randomly selected subjects required to estimate the sensitivity and specificity,
       # in a target population with prevalence of disease P, within W,
       # assuming the sensitivity and specificity are of sizes SN and SP, respectively
@@ -387,7 +387,7 @@ shinyServer(function(input, output, session){
                            SP)
       )
     }
-    datDP <- datDP[-1,]
+    datDP <<- datDP[-1,]
 
 
 
@@ -403,17 +403,13 @@ shinyServer(function(input, output, session){
       layout(legend = list(bgcolor = 'rgb(254, 247, 234)'))
     else
       datDP %>%
-      plot_ly(x = ~P, y = ~N_Sp, type = 'scatter', mode = 'lines+markers', name = 'N specificity') %>%
-      add_trace(y = ~N_Sn, mode = 'lines+markers', name = 'N sensitivity') %>%
-      layout(plot_bgcolor='rgb(254, 247, 234)') %>%
-      layout(paper_bgcolor='rgb(254, 247, 234)')
-
+        plot_ly(x = ~P*100, y = ~N_Sp, type = 'scatter', mode = 'lines+markers', name = 'Specificity') %>%
+        add_trace(y = ~N_Sn, mode = 'lines+markers', name = 'Sensitivity') %>%
+        layout(plot_bgcolor='rgb(254, 247, 234)', paper_bgcolor='rgb(254, 247, 234)') %>%
+        layout(xaxis = list(title = "Prevalence (%)"),
+               yaxis = list(title = "N")
+        )
   })
-
-
-
-
-
 
 
 
