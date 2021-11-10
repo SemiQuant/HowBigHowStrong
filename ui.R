@@ -210,7 +210,18 @@ sidebar <- dashboardSidebar(
                                     conditionalPanel("input.pwrpropPP === 'Sample Size'",
                                                      sliderInput("pRangePPSsize", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
                                     )
-                           ), "PP")
+                           ), "PP"),
+                         convertMenuItem(
+                           menuItem("Diagnostic Sens/Spec CI width", tabName = "DP", icon = icon("calculator"),
+                                    sliderInput("wP", "Range for the prevalence of disease in the target population:", min = 0, max = 1, step = 0.1,
+                                                value = c(0.2, 0.8)),
+                                    sliderInput("alpDC", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    numericInput("wDP", "Maximum clinically acceptable width of the 95% CI:", value=0.1, min = 0.01, max = 0.9, step = 0.05),
+                                    numericInput("wSn", "Expected sensitivity of the new diagnostic test:", value=0.8, min = 0.01, max = 1, step = 0.05),
+                                    numericInput("wSp", "Expected specificity of the new diagnostic test:", value=0.8, min = 0.01, max = 1, step = 0.05)
+                           ), "DP")
+
+
                 ),
 
                 convertMenuItem(
@@ -371,6 +382,11 @@ body <- dashboardBody(
                 DTOutput("PPdt"))
     ),
 
+    tabItem(tabName = "DP",
+            h3("Disease Frevalence and Sample Size"),
+            h5("*Buderer, N. M. F. (1996). Statistical methodology: I. Incorporating the prevalence of disease into the sample size calculation for sensitivity and specificity. Academic Emergency Medicine."),
+            plotlyOutput("DPplot")
+    ),
 
     tabItem(tabName = "MM",
             h3("Power and sample size calculations for t-tests of means (one sample, two samples and paired samples)"),

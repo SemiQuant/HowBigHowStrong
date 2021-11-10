@@ -321,6 +321,102 @@ shinyServer(function(input, output, session){
   })
 
 
+
+
+
+
+  ############
+  ## DP TAB ##
+  ############
+  # https://onlinelibrary.wiley.com/doi/epdf/10.1111/j.1553-2712.1996.tb03538.x
+
+  output$DPplot <- renderPlotly({
+
+    datDP <- data.frame(N = NA,
+                        n_Sn = NA,
+                        n_Sp = NA,
+                        N_Sn = NA,
+                        N_Sp = NA,
+                        P = NA,
+                        W = NA,
+                        SN = NA,
+                        SP = NA)
+
+    alpha <- input$alpDC
+    W <- input$wDP
+    SN <-input$wSn
+    SP <-input$wSp
+    tails <- 2
+    Za2 <- qnorm(1-alpha/tails)
+
+    for (P in seq(from = input$wP[1], to = input$wP[2], by = 0.05)){
+
+      # Calculate the Number with Disease, TP + FN
+      TP_FN <- Za2^2*(SN*(1-SN)/W^2)
+
+      # Calculate the Sample Size Required for Sensitivity
+      N_Sn <- (TP_FN)/P
+
+
+      # Calculate the Number without Disease, FP + TN
+      FP_TN <- Za2^2*(SP*(1-SP)/W^2)
+
+      # Calculate the Sample Size Required for Specificity, N_Sp
+      N_Sp <- (FP_TN)/(1-P)
+
+      N <- ceiling(ifelse(N_Sn > N_Sp, N_Sn, N_Sp))
+      # is the number of randomly selected subjects required to estimate the sensitivity and specificity,
+      # in a target population with prevalence of disease P, within W,
+      # assuming the sensitivity and specificity are of sizes SN and SP, respectively
+
+      n_Sn <- N_Sn*P
+      n_Sp <- N_Sp*P
+
+
+      datDP <- rbind(datDP,
+                     cbind(N,
+                           n_Sn,
+                           n_Sp,
+                           N_Sn,
+                           N_Sp,
+                           P,
+                           W,
+                           SN,
+                           SP)
+      )
+    }
+    datDP <- datDP[-1,]
+
+
+
+
+    ss <- PPss()
+    if (input$plot_xkcd)
+      ggplotly(ggplot(datDP, aes(x = P, y = N_Sp)) +
+                 geom_point() +
+                 geom_line() +
+                 theme_xkcd() + xkcdaxis(range(ss$P), range(ss$N_Sp))) %>%
+      layout(plot_bgcolor='rgb(254, 247, 234)') %>%
+      layout(paper_bgcolor='rgb(254, 247, 234)') %>%
+      layout(legend = list(bgcolor = 'rgb(254, 247, 234)'))
+    else
+      datDP %>%
+      plot_ly(x = ~P, y = ~N_Sp, type = 'scatter', mode = 'lines+markers', name = 'N specificity') %>%
+      add_trace(y = ~N_Sn, mode = 'lines+markers', name = 'N sensitivity') %>%
+      layout(plot_bgcolor='rgb(254, 247, 234)') %>%
+      layout(paper_bgcolor='rgb(254, 247, 234)')
+
+  })
+
+
+
+
+
+
+
+
+
+
   ############
   ## MM TAB ##
   ############
@@ -545,24 +641,24 @@ shinyServer(function(input, output, session){
 
   observeEvent(input$sidebarmenu, {
     if (input$sidebarmenu == "WhatIs")
-    showModal(modalDialog(easyClose=T,
-      title = "What is a p-value? What is power?",
-      "This is borrowed from the Rphycologist and you can interactively play with paramaters to see what power and significance are/mean."
-#       footer =
-#       c('Still need to edit the below text.
-#       Power is the probability of not making a Type II error (1 – beta). Type II error is the probability of wrongly failing to reject the null  (i.e. you dont see a difference in you test but there is actually a difference). Thus, simply put, power is the probability that the test rejects the null hypothesis (H0) when, in fact, it is false. You want power to be as large as possible.
-#
-#
-# What affects power?
-# -Significance level (alpha)
-# -Sample size
-# -Variability, or variance, in the measured response variable
-# -Magnitude of the effect
-#
-#
-# p-value: How likley our sample results are under our assumption of the truth. Put another way, what is the probability of being this far or further from the null in either direction (two sided test). So for example, our H0 when comparing two means would be H0=u1-u2=0. Type I error is to falsely infer the existence of something that is not there.
-# It is the likelihood that you will report a difference as significant when, in reality, it is not. You want this to be as small as possible.')
-    ))
+      showModal(modalDialog(easyClose=T,
+                            title = "What is a p-value? What is power?",
+                            "This is borrowed from the Rphycologist and you can interactively play with paramaters to see what power and significance are/mean."
+                            #       footer =
+                            #       c('Still need to edit the below text.
+                            #       Power is the probability of not making a Type II error (1 – beta). Type II error is the probability of wrongly failing to reject the null  (i.e. you dont see a difference in you test but there is actually a difference). Thus, simply put, power is the probability that the test rejects the null hypothesis (H0) when, in fact, it is false. You want power to be as large as possible.
+                            #
+                            #
+                            # What affects power?
+                            # -Significance level (alpha)
+                            # -Sample size
+                            # -Variability, or variance, in the measured response variable
+                            # -Magnitude of the effect
+                            #
+                            #
+                            # p-value: How likley our sample results are under our assumption of the truth. Put another way, what is the probability of being this far or further from the null in either direction (two sided test). So for example, our H0 when comparing two means would be H0=u1-u2=0. Type I error is to falsely infer the existence of something that is not there.
+                            # It is the likelihood that you will report a difference as significant when, in reality, it is not. You want this to be as small as possible.')
+      ))
   })
 
   observeEvent(input$sidebarmenu, {
