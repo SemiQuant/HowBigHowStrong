@@ -249,6 +249,24 @@ sidebar <- dashboardSidebar(
                            )), "MM"
                 ),
 
+
+                convertMenuItem(
+                  menuItem("Success Run", tabName = "srun", icon = icon("calculator"),
+                           sliderInput("ci_srun", "Select a confidence interval:", min = 0.001, max = 1, 0.95, step = 0.001),
+                           sliderInput("r_srun", "Select the reliability of the test:", min = 0.001, max = 1, 0.95, step = 0.001)
+                  ), "srun"),
+
+
+                convertMenuItem(
+                  menuItem("Seq Success", tabName = "seq_suc", icon = icon("calculator"),
+                           sliderInput("vaf", "Allele Freq:", min = 0.01, max = 1, 0.1, step = 0.005),
+                           sliderInput("ber", "Background (sequencing) error rate:", min = 0.001, max = 0.7, 0.01, step = 0.005),
+                           sliderInput("seq_conf", "Confidence interval:", min = 0.05, max = 1, 0.95, step = 0.05),
+                           sliderInput("seq_pwd", "Power:", min = 0.05, max = 1, 0.90, step = 0.05)
+                  ), "seq_suc"),
+
+
+
                 convertMenuItem(
                   menuItem("RNA Seq", tabName = "RNAss", icon = icon("calculator"),
                            # conditionalPanel("input.sidebarmenu === 'RNAss'",
@@ -406,6 +424,19 @@ body <- dashboardBody(
             br(),
             box(title = "Data Table", collapsible = T, collapsed = T, width = 12,
                 DTOutput("RNAssdt"))
+    ),
+
+
+    tabItem(tabName = "srun",
+            h3("Bayes success run theorem for sample size (i.e., for a medical device trial; similar to binomial reliability demonstration test)"),
+            verbatimTextOutput("b_srun")
+    ),
+
+
+    tabItem(tabName = "seq_suc",
+            h3("Sample size needed for a single genetic test"),
+            "Im not 100% sure on this calcuation",
+            verbatimTextOutput("seq_sucO")
     ),
 
 

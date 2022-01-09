@@ -5,9 +5,9 @@ account: semiquant
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 405009
-bundleId: 5237605
+bundleId: 5238366
 url: https://semiquant.shinyapps.io/SampleSizeCalculator/
-when: 1636568589.9677
-lastSyncTime: 1636568589.96772
+when: 1636579919.55891
+lastSyncTime: 1636579919.55892
 asMultiple: FALSE
 asStatic: FALSE
