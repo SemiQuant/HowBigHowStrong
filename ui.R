@@ -458,51 +458,80 @@ body <- dashboardBody(
   tabItems(
     tabItem(tabName = "dashboard",
         fluidRow(
-            box(width = 12,
-                h2("Sample Size & Power Calculator", align = "center"),
-                p("This app helps researchers calculate required sample sizes and statistical power for various study designs and analyses.", 
-                  "Select the appropriate test from the sidebar based on your study needs:"),
-                
-                h3("Available Calculators:"),
-                br(),
-                h4("Study Design"),
-                tags$ul(
-                    tags$li(strong("Cohort/RCT:"), "Calculate sample size or power for comparing two proportions in cohort studies or randomized controlled trials"),
-                    tags$li(strong("One Sample Proportion:"), "Test a single proportion against a null hypothesis value"),
-                    tags$li(strong("Two Sample Proportion:"), "Compare proportions between two independent groups"),
-                    tags$li(strong("Population Proportion (CI):"), "Calculate confidence intervals for population proportions"),
-                    tags$li(strong("Two Means:"), "Compare means between groups using t-tests (one sample, two sample, or paired)")
-                ),
-                br(),
-                h4("Specialized Tests"),
-                tags$ul(
-                    tags$li(strong("RNA Seq:"), "Sample size calculations for RNA sequencing differential expression analysis"),
-                    tags$li(strong("Success Run:"), "Calculate required consecutive successes for reliability demonstration"),
-                    tags$li(strong("Seq Success:"), "Determine sample size for variant detection in sequencing studies"),
-                    tags$li(strong("Diagnostic Test Performance:"), "Calculate sensitivity, specificity, and other metrics for diagnostic tests")
+            box(width = 12, status = "primary",
+                div(
+                    style = "text-align: center; padding: 20px;",
+                    h1("Sample Size & Power Calculator", 
+                       style = "color: #ffffff; margin-bottom: 30px; font-weight: 300;"),
+                    p(style = "font-size: 18px; color: #c8c8c8; margin-bottom: 40px;",
+                      "An intuitive tool for researchers to calculate sample sizes and statistical power",
+                      "for various study designs and analyses.")
                 ),
                 
-                br(),
-                h4("Tutorial Video"),
-                tags$video(src = "SampleSizeCalcTut.mp4", type = "mp4", 
-                          autoplay = FALSE, controls = TRUE,
-                          width = "60%", poster = "sq_pad.png"),
-                
-                br(),
-                hr(),
-                
-                HTML(
-                    '<p>Have a suggestion or need a specific test? 
-                    <a href="mailto:Jason.Limberis@uct.ac.za?subject=Sample Size Calculator Suggestion">
-                    Email us</a></p>'
+                div(
+                    style = "display: flex; justify-content: space-around; flex-wrap: wrap; margin: 20px 0;",
+                    
+                    # Study Design Card
+                    div(
+                        style = "background-color: rgb(52,62,72); padding: 20px; margin: 10px; border-radius: 5px; width: 45%; min-width: 300px;",
+                        h3("Study Design", style = "color: rgb(198, 253, 168); border-bottom: 1px solid rgb(70,80,90); padding-bottom: 10px;"),
+                        tags$ul(
+                            style = "color: #c8c8c8; font-size: 16px;",
+                            tags$li(strong("Cohort/RCT:"), "Compare proportions in cohort studies or RCTs"),
+                            tags$li(strong("One Sample Proportion:"), "Test single proportion against null"),
+                            tags$li(strong("Two Sample Proportion:"), "Compare independent group proportions"),
+                            tags$li(strong("Population Proportion (CI):"), "Calculate confidence intervals"),
+                            tags$li(strong("Two Means:"), "Compare means using t-tests")
+                        )
+                    ),
+                    
+                    # Specialized Tests Card
+                    div(
+                        style = "background-color: rgb(52,62,72); padding: 20px; margin: 10px; border-radius: 5px; width: 45%; min-width: 300px;",
+                        h3("Specialized Tests", style = "color: rgb(198, 253, 168); border-bottom: 1px solid rgb(70,80,90); padding-bottom: 10px;"),
+                        tags$ul(
+                            style = "color: #c8c8c8; font-size: 16px;",
+                            tags$li(strong("RNA Seq:"), "Sample size for RNA sequencing analysis"),
+                            tags$li(strong("Success Run:"), "Consecutive successes for reliability"),
+                            tags$li(strong("Seq Success:"), "Sample size for variant detection"),
+                            tags$li(strong("Diagnostic Test:"), "Calculate diagnostic metrics")
+                        )
+                    )
                 ),
                 
-                p("Power/Sample Size calculations use the following R packages:"),
-                tags$ul(
-                    tags$li(tags$a(href="https://www.rdocumentation.org/packages/pwr/versions/1.2-2", "pwr")),
-                    tags$li(tags$a(href="https://www.rdocumentation.org/packages/samplingbook/versions/1.2.2", "samplingbook")),
-                    tags$li(tags$a(href="https://www.rdocumentation.org/packages/RnaSeqSampleSize/versions/1.4.2", "RnaSeqSampleSize")),
-                    tags$li(tags$a(href="https://www.rdocumentation.org/packages/Hmisc/versions/4.1-1", "Hmisc"))
+                # Tutorial Section
+                div(
+                    style = "text-align: center; margin-top: 40px; padding: 20px; background-color: rgb(52,62,72); border-radius: 5px;",
+                    h3("Quick Start Tutorial", style = "color: rgb(198, 253, 168); margin-bottom: 20px;"),
+                    tags$video(
+                        src = "SampleSizeCalcTut.mp4", 
+                        type = "mp4", 
+                        controls = TRUE,
+                        width = "60%", 
+                        poster = "sq_pad.png",
+                        style = "border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
+                    )
+                ),
+                
+                # Footer
+                div(
+                    style = "margin-top: 40px; padding: 20px; text-align: center; border-top: 1px solid rgb(70,80,90);",
+                    p(style = "color: #7a8288;",
+                      "Have a suggestion or need a specific test? ",
+                      tags$a(
+                          href = "mailto:Jason.Limberis@uct.ac.za?subject=Sample Size Calculator Suggestion",
+                          "Email us",
+                          style = "color: rgb(198, 253, 168);"
+                      )
+                    ),
+                    
+                    p(style = "color: #7a8288; margin-top: 20px;",
+                      "Powered by R packages: ",
+                      tags$span(
+                          style = "color: #c8c8c8;",
+                          "pwr, samplingbook, RnaSeqSampleSize, Hmisc"
+                      )
+                    )
                 )
             )
         )
