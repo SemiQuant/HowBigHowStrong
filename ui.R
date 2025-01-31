@@ -118,10 +118,10 @@ dark_grey_edited <- shinyDashboardThemeDIY(
 title <- "Sample Size Calculator"
 #  link not working
 header <- dashboardHeader(title =  div(img(src = "sq.png", height="42.885", width="34.29"), title), titleWidth = 300,
-                          dropdownMenu(type = "notifications", icon = icon("medkit"), badgeStatus = NULL,
-                                       notificationItem(text = "Center for Lung Infection and Immunity",
-                                                        href = "http://lunginstitute.co.za/liiu/")
-                          ),
+                          # dropdownMenu(type = "notifications", icon = icon("medkit"), badgeStatus = NULL,
+                          #              notificationItem(text = "Center for Lung Infection and Immunity",
+                          #                               href = "http://lunginstitute.co.za/liiu/")
+                          # ),
                           dropdownMenu(type = "notifications", icon = icon("copyright"), badgeStatus = NULL,
                                        notificationItem(text = "Copyright 2018")
                           )
