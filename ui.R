@@ -384,7 +384,52 @@ sidebar <- dashboardSidebar(
 
 body <- dashboardBody(
   dark_grey_edited,
+  # Add SEO meta tags
   tags$head(
+    # Basic meta tags
+    tags$meta(name="description", content="Free online sample size and power calculator for medical research and clinical trials. Calculate sample sizes for RCTs, proportions, means, RNA-seq and more."),
+    tags$meta(name="keywords", content="sample size calculator, power calculator, clinical trial calculator, medical research, statistical power, RCT sample size, RNA-seq sample size"),
+    tags$meta(name="author", content="Jason Limberis/UCSF"),
+    
+    # Social media meta tags
+    tags$meta(property="og:title", content="Sample Size & Power Calculator"),
+    tags$meta(property="og:description", content="Free online calculator for sample size and power calculations in medical research and clinical trials."),
+    tags$meta(property="og:type", content="website"),
+    tags$meta(property="og:url", content="https://www.semiquant.com/"),
+    tags$meta(property="og:image", content="https://github.com/SemiQuant/DEAD/blob/master/www/sq.png"),
+    
+    # Twitter card meta tags  
+    tags$meta(name="twitter:card", content="summary"),
+    tags$meta(name="twitter:title", content="Sample Size & Power Calculator"),
+    tags$meta(name="twitter:description", content="Free online calculator for sample size and power calculations in medical research and clinical trials."),
+    tags$meta(name="twitter:image", content="https://github.com/SemiQuant/DEAD/blob/master/www/sq.png"),
+    
+    # Structured data in JSON-LD format
+    tags$script(type="application/ld+json",
+      '{
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Sample Size & Power Calculator",
+        "description": "Free online calculator for sample size and power calculations in medical research and clinical trials.",
+        "url": "https://yourdomain.com",
+        "applicationCategory": "Scientific Calculator",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "RCT sample size calculation",
+          "Power analysis",
+          "Proportion testing",
+          "RNA-seq sample size",
+          "Diagnostic test calculations"
+        ]
+      }'
+    ),
+    
+    # Existing style tags
     tags$style(HTML("
       /* Increase main content text size */
       .content-wrapper {
