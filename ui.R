@@ -387,8 +387,8 @@ body <- dashboardBody(
   # Add enhanced SEO meta tags
   tags$head(
     # Basic meta tags with expanded keywords and description
-    tags$meta(name="description", content="Free online sample size and power calculator for medical research, clinical trials, and scientific studies. Calculate sample sizes for RCTs, proportions, means, RNA-seq, diagnostic tests and more. User-friendly interface with instant results and visualizations."),
-    tags$meta(name="keywords", content="sample size calculator, power calculator, clinical trial calculator, medical research calculator, statistical power analysis, RCT sample size, RNA-seq sample size, diagnostic test calculator, research planning tool, biostatistics calculator, clinical research calculator, study design tool, medical statistics, cohort study calculator, proportion calculator, means calculator, free sample size calculator"),
+    tags$meta(name="description", content="Free online sample size and power calculator for medical research, clinical trials, and scientific studies. Calculate sample sizes for RCTs, proportions, means, RNA-seq, diagnostic tests and more. User-friendly interface with instant results and visualizations. Similar to OpenEpi, ClinCalc, Calculator.net"),
+    tags$meta(name="keywords", content="sample size calculator, power calculator, clinical trial calculator, medical research calculator, statistical power analysis, RCT sample size, RNA-seq sample size, diagnostic test calculator, research planning tool, biostatistics calculator, clinical research calculator, study design tool, medical statistics, cohort study calculator, proportion calculator, means calculator, free sample size calculator, OpenEpi, ClinCalc, Calculator.net"),
     tags$meta(name="author", content="Jason Limberis/UCSF"),
     
     # Additional meta tags for search engines
