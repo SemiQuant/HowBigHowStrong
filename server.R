@@ -637,6 +637,29 @@ shinyServer(function(input, output, session){
 
   })
 
+  output$srun_interpretation <- renderUI({
+    ci <- input$ci_srun
+    r <- input$r_srun
+    n <- ceiling(log(1 - ci) / log(r))
+    
+    # Return styled HTML output
+    HTML(sprintf(
+        "<div style='font-size: 28px; line-height: 1.5; color: #ffffff;'>
+            <p>With %d consecutive successes:</p>
+            <ul>
+                <li>You can be %d%% confident that the true reliability is at least %d%%</li>
+                <li>This means if the true reliability were lower than %d%%, the probability of seeing %d consecutive successes would be less than %d%%</li>
+            </ul>
+        </div>",
+        n,
+        round(ci * 100),
+        round(r * 100),
+        round(r * 100),
+        n,
+        round((1 - ci) * 100)
+    ))
+  })
+
 
   ######################
   ## Seq Success ##

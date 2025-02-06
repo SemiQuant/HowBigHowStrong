@@ -136,7 +136,7 @@ sidebar <- dashboardSidebar(
                 convertMenuItem(
                   menuItem("Cohort/RCT", tabName = "rct", icon = icon("calculator"),
                            radioButtons("pwrRCT", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                           sliderInput("alp", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                           sliderInput("alp", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.01),
                            bsTooltip("alp", "The significance level (Type I error rate) - probability of rejecting null when it's true", 
                                    placement = "right", trigger = "hover"),
                            sliderInput("outcome1", "Select Outcome 1 expected proportion:", min = 0.1, max = 0.99, 0.5, step = 0.01),
@@ -174,14 +174,14 @@ sidebar <- dashboardSidebar(
                            menuItem("One Sample Proportion", tabName = "propSS", icon = icon("calculator"),
                                     # conditionalPanel("input.sidebarmenu === 'propSS'",
                                     radioButtons("pwrpropSS", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                    sliderInput("alpProp", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    sliderInput("alpProp", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.01),
                                     selectInput(
                                       inputId = "altProp", label = "Alternative:", multiple = F,
                                       choices = c("two.sided", "greater", "less"), selected = "two.sided"),
                                     numericInput("effProp", "Effect Size:", 0.2, min = 0.0001),
                                     conditionalPanel("input.pwrpropSS === 'Power'",
-                                                     sliderInput("pRangeProp", "Select power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.01),
-                                                     sliderInput("LTFUProp", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.01)
+                                                     sliderInput("pRangeProp", "Select power range to plot:", min = 0.1, max = 0.99, value = c(0.6, 0.95), step = 0.1),
+                                                     sliderInput("LTFUProp", "Add proportion for LTFU and interim calculations:", min = 0, max = 1, 0, step = 0.1)
                                     ),
                                     conditionalPanel("input.pwrpropSS === 'Sample Size'",
                                                      sliderInput("pRangePropSsize", "Sample Size:", min = 2, value = c(50, 100), step = 1, max = 10000)
@@ -193,7 +193,7 @@ sidebar <- dashboardSidebar(
                            menuItem("Two Sample Proportion", tabName = "propTS", icon = icon("calculator"),
                                     # conditionalPanel("input.sidebarmenu === 'propTS'",
                                     radioButtons("pwrpropTS", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                                    sliderInput("alpPropTS", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    sliderInput("alpPropTS", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.01),
                                     bsTooltip("alpPropTS", "The significance level (Type I error rate) for the test", 
                                               placement = "right", trigger = "hover"),
                                     selectInput("altPropTS", "Alternative:", multiple = F,
@@ -201,7 +201,7 @@ sidebar <- dashboardSidebar(
                                                 selected = "two.sided"),
                                     bsTooltip("altPropTS", "Type of alternative hypothesis - two-sided tests for any difference, greater/less tests for specific direction", 
                                               placement = "right", trigger = "hover"),
-                                    numericInput("effPropTS", "Effect Size:", 0.2, min = 0.0001),
+                                    numericInput("effPropTS", "Effect Size:", 0.2, min = 0.01),
                                     bsTooltip("effPropTS", "The minimum difference in proportions you want to detect", 
                                               placement = "right", trigger = "hover"),
                                     conditionalPanel("input.pwrpropTS === 'Power'",
@@ -216,7 +216,7 @@ sidebar <- dashboardSidebar(
                          convertMenuItem(
                            menuItem("Population Proportion (CI)", tabName = "PP", icon = icon("calculator"),
                                     radioButtons("pwrpropPP", "Select type:", inline = T, choices = c("Power"), selected = "Power"),
-                                    sliderInput("alpPP", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    sliderInput("alpPP", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.01),
                                     bsTooltip("alpPP", "The significance level for confidence interval calculation", 
                                               placement = "right", trigger = "hover"),
                                     sliderInput("fractionPP", "Select likely sample proportion:",
@@ -238,7 +238,7 @@ sidebar <- dashboardSidebar(
                            menuItem("Diagnostic Sens/Spec CI width", tabName = "DP", icon = icon("calculator"),
                                     sliderInput("wP", "Range for the prevalence of disease in the target population:", min = 0, max = 1, step = 0.1,
                                                 value = c(0.2, 0.8)),
-                                    sliderInput("alpDC", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                                    sliderInput("alpDC", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.01),
                                     numericInput("wDP", "Maximum clinically acceptable width of the 95% CI:", value=0.1, min = 0.01, max = 0.9, step = 0.05),
                                     numericInput("wSn", "Expected sensitivity of the new diagnostic test:", value=0.8, min = 0.01, max = 1, step = 0.05),
                                     numericInput("wSp", "Expected specificity of the new diagnostic test:", value=0.8, min = 0.01, max = 1, step = 0.05)
@@ -251,7 +251,7 @@ sidebar <- dashboardSidebar(
                   menuItem("Two Means", tabName = "MM", icon = icon("calculator"),
                            # conditionalPanel("input.sidebarmenu === 'MM'",
                            radioButtons("pwrMM", "Select type:", inline = T, choices = c("Power", "Sample Size"), selected = "Power"),
-                           sliderInput("alpMM", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.001),
+                           sliderInput("alpMM", "Select alpha:", min = 0.001, max = 0.2, 0.05, step = 0.01),
                            bsTooltip("alpMM", "The significance level (Type I error rate) for the test", 
                                     placement = "right", trigger = "hover"),
                            selectInput(
@@ -280,10 +280,10 @@ sidebar <- dashboardSidebar(
 
                 convertMenuItem(
                   menuItem("Success Run", tabName = "srun", icon = icon("calculator"),
-                           sliderInput("ci_srun", "Select a confidence interval:", min = 0.001, max = 1, 0.95, step = 0.001),
+                           sliderInput("ci_srun", "Select a confidence interval:", min = 0.001, max = 1, 0.95, step = 0.01),
                            bsTooltip("ci_srun", "Desired confidence level for the success run analysis", 
                                      placement = "right", trigger = "hover"),
-                           sliderInput("r_srun", "Select the reliability of the test:", min = 0.001, max = 1, 0.95, step = 0.001),
+                           sliderInput("r_srun", "Select the reliability of the test:", min = 0.001, max = 1, 0.95, step = 0.05),
                            bsTooltip("r_srun", "Required reliability level for the success run", 
                                      placement = "right", trigger = "hover")
                   ), "srun"),
@@ -452,6 +452,13 @@ body <- dashboardBody(
       /* Preserve existing styles */
       .irs-max {font-family: 'arial'; color: white;}
       .irs-min {font-family: 'arial'; color: white;}
+    ")),
+    tags$style(HTML("
+        .large-interpretation {
+            font-size: 28px !important;
+            line-height: 1.5 !important;
+            color: #ffffff !important;
+        }
     "))
   ),
   # fluidRow("hello"),
@@ -651,14 +658,61 @@ body <- dashboardBody(
 
     tabItem(tabName = "srun",
             h3("Success Run Calculator"),
-            p("Calculate required number of consecutive successes needed to demonstrate reliability."),
-            p("Applications include:"),
+            
+            # Results box with improved formatting
+            box(
+                title = "Results",
+                width = 12,
+                status = "primary",
+                div(
+                    style = "padding: 15px; background-color: rgb(52,62,72); border-radius: 5px;",
+                    div(
+                        style = "margin-bottom: 20px;",
+                        h4("Required Success Run Length:", style = "color: rgb(198, 253, 168);"),
+                        verbatimTextOutput("b_srun")
+                    ),
+                    div(
+                        style = "margin-bottom: 20px;",
+                        h4("Interpretation:", style = "color: rgb(198, 253, 168);"),
+                        uiOutput("srun_interpretation", style = "font-size: 28px; line-height: 1.5; color: #ffffff;")
+                    )
+                )
+            ),
+            # Add explanation box
+            box(
+                title = "About Success Run Analysis",
+                width = 12,
+                status = "info",
+                p("Success run analysis is used to determine the required number of consecutive successes (n) needed to demonstrate reliability (p)."),
+                tags$ul(
+                    tags$li("Confidence Level: How certain you want to be about your conclusion (e.g., 95%)"),
+                    tags$li("Target Reliability: The minimum acceptable reliability level (e.g., 95% reliable)")
+                ),
+                            p("Applications include:"),
             tags$ul(
                 tags$li("Medical device validation"),
                 tags$li("Quality control testing"),
                 tags$li("Process reliability assessment")
             ),
-            verbatimTextOutput("b_srun")
+            ),
+            
+            box(
+                title = "Example Application",
+                width = 12,
+                status = "success",
+                p("Consider testing a medical device where you need to be 95% confident that it is at least 95% reliable:"),
+                tags$ul(
+                    tags$li("Set confidence interval to 0.95 (95%)"),
+                    tags$li("Set reliability to 0.95 (95%)"),
+                    tags$li("The calculator will tell you how many consecutive successful tests you need")
+                ),
+                p("This approach is particularly useful for:"),
+                tags$ul(
+                    tags$li("Validation testing where failures are costly or time-consuming"),
+                    tags$li("Safety-critical applications requiring high reliability"),
+                    tags$li("Quality assurance in manufacturing processes")
+                )
+            )
     ),
 
 
