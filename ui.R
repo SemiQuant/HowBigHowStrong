@@ -384,34 +384,40 @@ sidebar <- dashboardSidebar(
 
 body <- dashboardBody(
   dark_grey_edited,
-  # Add SEO meta tags
+  # Add enhanced SEO meta tags
   tags$head(
-    # Basic meta tags
-    tags$meta(name="description", content="Free online sample size and power calculator for medical research and clinical trials. Calculate sample sizes for RCTs, proportions, means, RNA-seq and more."),
-    tags$meta(name="keywords", content="sample size calculator, power calculator, clinical trial calculator, medical research, statistical power, RCT sample size, RNA-seq sample size"),
+    # Basic meta tags with expanded keywords and description
+    tags$meta(name="description", content="Free online sample size and power calculator for medical research, clinical trials, and scientific studies. Calculate sample sizes for RCTs, proportions, means, RNA-seq, diagnostic tests and more. User-friendly interface with instant results and visualizations."),
+    tags$meta(name="keywords", content="sample size calculator, power calculator, clinical trial calculator, medical research calculator, statistical power analysis, RCT sample size, RNA-seq sample size, diagnostic test calculator, research planning tool, biostatistics calculator, clinical research calculator, study design tool, medical statistics, cohort study calculator, proportion calculator, means calculator, free sample size calculator"),
     tags$meta(name="author", content="Jason Limberis/UCSF"),
     
-    # Social media meta tags
-    tags$meta(property="og:title", content="Sample Size & Power Calculator"),
-    tags$meta(property="og:description", content="Free online calculator for sample size and power calculations in medical research and clinical trials."),
+    # Additional meta tags for search engines
+    tags$meta(name="robots", content="index, follow"),
+    tags$meta(name="language", content="English"),
+    tags$meta(name="revisit-after", content="7 days"),
+    
+    # Enhanced social media meta tags
+    tags$meta(property="og:title", content="Free Sample Size & Power Calculator for Medical Research"),
+    tags$meta(property="og:description", content="Professional-grade calculator for sample size and power calculations in medical research, clinical trials, and scientific studies. Free, easy to use, and comprehensive."),
     tags$meta(property="og:type", content="website"),
     tags$meta(property="og:url", content="https://www.semiquant.com/"),
     tags$meta(property="og:image", content="https://github.com/SemiQuant/DEAD/blob/master/www/sq.png"),
+    tags$meta(property="og:site_name", content="SemiQuant Sample Size Calculator"),
     
-    # Twitter card meta tags  
-    tags$meta(name="twitter:card", content="summary"),
-    tags$meta(name="twitter:title", content="Sample Size & Power Calculator"),
-    tags$meta(name="twitter:description", content="Free online calculator for sample size and power calculations in medical research and clinical trials."),
+    # Enhanced Twitter card meta tags
+    tags$meta(name="twitter:card", content="summary_large_image"),
+    tags$meta(name="twitter:title", content="Free Sample Size & Power Calculator for Medical Research"),
+    tags$meta(name="twitter:description", content="Professional-grade calculator for sample size and power calculations in medical research, clinical trials, and scientific studies. Free, easy to use, and comprehensive."),
     tags$meta(name="twitter:image", content="https://github.com/SemiQuant/DEAD/blob/master/www/sq.png"),
     
-    # Structured data in JSON-LD format
+    # Enhanced structured data in JSON-LD format
     tags$script(type="application/ld+json",
       '{
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "Sample Size & Power Calculator",
-        "description": "Free online calculator for sample size and power calculations in medical research and clinical trials.",
-        "url": "https://yourdomain.com",
+        "name": "SemiQuant Sample Size & Power Calculator",
+        "description": "Professional online calculator for sample size and power calculations in medical research and clinical trials. Free tool for researchers, clinicians, and scientists.",
+        "url": "https://www.semiquant.com",
         "applicationCategory": "Scientific Calculator",
         "operatingSystem": "Any",
         "offers": {
@@ -424,8 +430,26 @@ body <- dashboardBody(
           "Power analysis",
           "Proportion testing",
           "RNA-seq sample size",
-          "Diagnostic test calculations"
-        ]
+          "Diagnostic test calculations",
+          "Success run analysis",
+          "Two means comparison",
+          "Population proportion estimation"
+        ],
+        "author": {
+          "@type": "Person",
+          "name": "Jason Limberis",
+          "affiliation": "UCSF"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "Medical Research Statistics",
+          "description": "Statistical calculations for medical research and clinical trials"
+        },
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Researchers, Clinicians, Scientists"
+        },
+        "keywords": "sample size calculator, power calculator, clinical trial calculator, medical research, statistical power, RCT sample size, RNA-seq sample size"
       }'
     ),
     
