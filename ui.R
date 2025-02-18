@@ -415,8 +415,8 @@ body <- dashboardBody(
       '{
         "@context": "https://schema.org",
         "@type": "WebApplication",
-        "name": "SemiQuant Sample Size & Power Calculator",
-        "description": "Professional online calculator for sample size and power calculations in medical research and clinical trials. Free tool for researchers, clinicians, and scientists.",
+        "name": "Free Sample Size & Power Calculator",
+        "description": "Professional online calculator for sample size and power calculations in medical research and clinical trials. Includes calculators for RCTs, cohort studies, RNA-seq, diagnostic tests, and more.",
         "url": "https://www.semiquant.com",
         "applicationCategory": "Scientific Calculator",
         "operatingSystem": "Any",
@@ -428,12 +428,13 @@ body <- dashboardBody(
         "featureList": [
           "RCT sample size calculation",
           "Power analysis",
-          "Proportion testing",
           "RNA-seq sample size",
           "Diagnostic test calculations",
-          "Success run analysis",
+          "Cohort study planning",
           "Two means comparison",
-          "Population proportion estimation"
+          "Proportion testing",
+          "Success run analysis",
+          "Success run theorem"
         ],
         "author": {
           "@type": "Person",
@@ -452,6 +453,17 @@ body <- dashboardBody(
         "keywords": "sample size calculator, power calculator, clinical trial calculator, medical research, statistical power, RCT sample size, RNA-seq sample size"
       }'
     ),
+
+
+    # Add social proof and trust signals
+    tags$meta(property="og:title", content="Free Medical Sample Size Calculator | Trusted by Researchers Worldwide"),
+    tags$meta(property="og:description", content="Professional-grade calculator used by medical researchers globally. Free, comprehensive tool for sample size and power calculations in clinical research."),
+    
+    # Add mobile optimization meta tag
+    tags$meta(name="viewport", content="width=device-width, initial-scale=1.0"),
+    
+
+    
     
     # Existing style tags
     tags$style(HTML("
@@ -491,10 +503,10 @@ body <- dashboardBody(
         fluidRow(
             box(width = 12, status = "primary",
                 div(
-                    style = "text-align: center; padding: 20px;",
+                    style = "text-align: center; padding: 0px;",
                     h1("Sample Size & Power Calculator", 
-                       style = "color: #ffffff; margin-bottom: 30px; font-weight: 300;"),
-                    p(style = "font-size: 18px; color: #c8c8c8; margin-bottom: 40px;",
+                       style = "color: #ffffff; margin-bottom: 10px; font-weight: 300;"),
+                    p(style = "font-size: 18px; color: #c8c8c8; margin-bottom: 10px;",
                       "An intuitive tool for researchers to calculate sample sizes and statistical power",
                       "for various study designs and analyses.")
                 ),
@@ -505,7 +517,7 @@ body <- dashboardBody(
                     # Study Design Card
                     div(
                         style = "background-color: rgb(52,62,72); padding: 20px; margin: 10px; border-radius: 5px; width: 45%; min-width: 300px;",
-                        h3("Study Design", style = "color: rgb(198, 253, 168); border-bottom: 1px solid rgb(70,80,90); padding-bottom: 10px;"),
+                        h3("Study Design", style = "color: rgb(198, 253, 168); border-bottom: 1px solid rgb(70,80,90); padding-bottom: 0px;"),
                         tags$ul(
                             style = "color: #c8c8c8; font-size: 16px;",
                             tags$li(strong("Cohort/RCT:"), "Compare proportions in cohort studies or RCTs"),
@@ -519,7 +531,7 @@ body <- dashboardBody(
                     # Specialized Tests Card
                     div(
                         style = "background-color: rgb(52,62,72); padding: 20px; margin: 10px; border-radius: 5px; width: 45%; min-width: 300px;",
-                        h3("Specialized Tests", style = "color: rgb(198, 253, 168); border-bottom: 1px solid rgb(70,80,90); padding-bottom: 10px;"),
+                        h3("Specialized Tests", style = "color: rgb(198, 253, 168); border-bottom: 1px solid rgb(70,80,90); padding-bottom: 0px;"),
                         tags$ul(
                             style = "color: #c8c8c8; font-size: 16px;",
                             tags$li(strong("RNA Seq:"), "Sample size for RNA sequencing analysis"),
@@ -530,23 +542,64 @@ body <- dashboardBody(
                     )
                 ),
                 
-                # Tutorial Section
-                div(
-                    style = "text-align: center; margin-top: 40px; padding: 20px; background-color: rgb(52,62,72); border-radius: 5px;",
-                    h3("Quick Start Tutorial", style = "color: rgb(198, 253, 168); margin-bottom: 20px;"),
-                    tags$video(
-                        src = "SampleSizeCalcTut.mp4", 
-                        type = "mp4", 
-                        controls = TRUE,
-                        width = "60%", 
-                        poster = "sq_pad.png",
-                        style = "border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
-                    )
-                ),
+         div(
+    style = "text-align: center; margin-top: 10px; padding: 20px; background-color: rgb(52,62,72); border-radius: 5px;",
+    h3("Quick Start Tutorial", style = "color: rgb(198, 253, 168); margin-bottom: 10px;"),
+    tags$video(
+        id = "tutorial-video",
+        src = "SampleSizeCalcTut.mp4", 
+        type = "mp4", 
+        controls = TRUE,
+        width = "60%", 
+        poster = "sq_pad.png",
+        style = "border-radius: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
+    ),
+    tags$script(HTML('
+        $(document).ready(function() {
+            var video = document.getElementById("tutorial-video");
+            
+            // Set smaller width for poster view only
+            if (video.paused) {
+                video.style.width = "30%";
+            }
+            
+            // When play button is clicked, set width to 60%
+            video.addEventListener("play", function() {
+                video.style.width = "60%";
+            });
+            
+            // If video is paused, reset to smaller size
+            video.addEventListener("pause", function() {
+                if (video.currentTime === 0) {
+                    video.style.width = "30%";
+                }
+            });
+        });
+    '))
+),
                 
-                # Footer
+             
+
+                        # Add this to the dashboard tabItem
+    div(
+        style = "margin-top: 20px; padding: 20px;",
+        h3("Frequently Asked Questions", style = "color: rgb(198, 253, 168);"),
+        
+        h4("What is a sample size calculator?", style = "color: #ffffff;"),
+        p("A sample size calculator helps researchers determine the number of subjects needed for a study to achieve statistical significance. It ensures studies are neither underpowered nor waste resources."),
+        
+        h4("Why use this calculator?", style = "color: #ffffff;"),
+        p("Our calculator is free, comprehensive, and designed specifically for medical research. It includes specialized calculators for RCTs, RNA-seq, diagnostic tests, and more."),
+        
+        h4("How accurate is this calculator?", style = "color: #ffffff;"),
+        p("This calculator uses established statistical methods and formulas published in peer-reviewed literature. All calculations are based on widely accepted statistical principles.")
+    ),
+                    
+
+
+                       # Footer
                 div(
-                    style = "margin-top: 40px; padding: 20px; text-align: center; border-top: 1px solid rgb(70,80,90);",
+                    style = "margin-top: 20px; padding: 20px; text-align: center; border-top: 1px solid rgb(70,80,90);",
                     p(style = "color: #7a8288;",
                       "Have a suggestion or need a specific test? ",
                       tags$a(
@@ -554,16 +607,15 @@ body <- dashboardBody(
                           "Email us",
                           style = "color: rgb(198, 253, 168);"
                       )
-                    ),
-                    
-                    p(style = "color: #7a8288; margin-top: 20px;",
+                    )
+                ),
+                                    p(style = "color: #7a8288; margin-top: 10px; text-align: center;",
                       "Powered by R packages: ",
                       tags$span(
                           style = "color: #c8c8c8;",
                           "pwr, samplingbook, RnaSeqSampleSize, Hmisc"
                       )
                     )
-                )
             )
         )
     ),
